@@ -80,5 +80,19 @@ class JurusanSeeder extends Seeder
 
             ],
         );
+        Jurusan::create(
+
+            [
+                'nama_jurusan' => 'Elektro',
+
+            ],
+        );
+        Jurusan::create(
+
+            [
+                'nama_jurusan' => 'Industri',
+
+            ],
+        );
     }
 }

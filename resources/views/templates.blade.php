@@ -33,7 +33,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <img width="70" height="70" src="{{ asset('img/Logo Unmul Universitas Mulawarman.png') }}" alt="Univ. mulawarman">
+                    <img width="70" height="60" src="{{ asset('img/Logo Unmul Universitas Mulawarman.png') }}" alt="Univ. mulawarman">
                 </div>
                 <div class="sidebar-brand-text mx-1">Perpustakaan Teknik</div>
             </a>

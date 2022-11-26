@@ -56,35 +56,46 @@ class ProsesFakultasControllers extends Controller
     {
 
         $nim = $request->input('nim');
-        $nama_buku = $request->get('addnama_buku');
+        $nama_buku = $request->get('nama_buku');
         $penerbit = $request->get('penerbit');
         $penulis = $request->get('penulis');
         $harga = $request->get('harga');
+        $nama = $request->get('nama');
+        $no_hp = $request->get('no_hp');
+        $addemail = $request->get('addemail');
+        $id_jurusan = $request->get('id_jurusan');
         $answers1 = array();
+        $answers = array();
         $uuid4 = Uuid::uuid4();
         $uuid4->toString();
 
-        $update_buku = Buku::find($request->addid_buku);
+        $update_buku = Buku::find($request->id_buku);
         $update_buku->jumlah = $update_buku->jumlah + 1;
         $update_buku->save();
 
 
         for ($i = 0; $i < count($nim); $i++) {
-            $mahasiswas = Mahasiswa::where('nim', $nim[$i]);
-            $mahasiswas->update([
+            ////$mahasiswas = Mahasiswa::where('nim', $nim[$i]);
+            ////$mahasiswas->update([
+            ////    'status' => 1,
+            //]);
+
+            $answers[] = [
+                'nama_mhs' => $nama[$i],
+                'nim' => $nim[$i],
+                'id_jurusan' => $id_jurusan[$i],
+                'no_hp' => $no_hp[$i],
+                'email' => $addemail[$i],
                 'status' => 1,
-            ]);
+            ];
 
             $answers1[] = [
                 'kode_beli' => $uuid4,
-                'id_buku' => $request->addid_buku,
+                'id_buku' => $request->id_buku,
                 'NIM_mhs' => $nim[$i],
                 'status' => 1,
             ];
 
-            $mhs_list = Mahasiswa::where('nim', $nim[$i]);
-            $nama_mhs = $mhs_list->value('nama_mhs');
-            $emails = $mhs_list->value('email');
             $details = [
                 'title' => 'Pembelian Buku untuk Perpustakaan',
                 'body' => 'Buku yang anda beli adalah:',
@@ -94,13 +105,18 @@ class ProsesFakultasControllers extends Controller
                 'penulis' => $penulis[0],
                 'harga' => $harga[0],
                 'nama' => $nama_buku[0],
-                'nama_mhs' => $nama_mhs,
-                'nim' => $nim[$i],
+                
             ];
 
-            //Mail::to($emails)->send(new \App\Mail\MyTestMail($details));
+            
+            
         }
+        Mahasiswa::insert($answers);
         Booking::insert($answers1);
+
+        for ($i = 0; $i < count($nim); $i++) {
+            Mail::to($addemail[$i])->send(new \App\Mail\MyTestMail($details, $answers));
+        }
 
         //$tambah_mahasiswa = new Mahasiswa;
         //$tambah_mahasiswa->nama_mhs = $request->addnama;
@@ -115,7 +131,7 @@ class ProsesFakultasControllers extends Controller
         //$tambah_booking->NIM_mhs = $request->addNIM;
         //$tambah_booking->status = 1;
         //$tambah_booking->save();
-        return redirect('/buku');
+        return redirect('/list_buku');
     }
 
     /**
@@ -126,22 +142,14 @@ class ProsesFakultasControllers extends Controller
      */
     public function show($id)
     {
-        $jurusans = Jurusan::all();
-        $bookings = Booking::with('Buku')
-            ->selectRaw('bookings.id, kode_beli, id_buku, NIM_mhs, nama_mhs, id_jurusan, email, no_hp, bookings.status')
-            ->Join("mahasiswas", "mahasiswas.nim", "=", "bookings.NIM_mhs")
-            ->where('kode_beli', '=', $id)
-            ->get();
-
-        $bukus = Booking::with('Buku')
-            ->selectRaw('kode_beli, id_buku')
-            ->groupBy('kode_beli')
-            ->where('kode_beli', '=', $id)
-            ->get();
+        $bukus = Buku::with('Jurusan')
+        ->where('bukus.id', '=', $id)
+        ->get();
+        $jurusans = Jurusan::where('id', '!=', '1')->get();
         $Mahasiswas_belum = Mahasiswa::with('Jurusan')
-            ->where('status', '=', '0')
-            ->get();
-        return view('proses.update1', compact('bookings', 'bukus', 'jurusans', 'Mahasiswas_belum'))->with('i', (request()->input('page', 1) - 1) * 5);
+        ->where('status', '=', '0')
+        ->get();
+        return view('DepanHome.create_beli1', compact('bukus', 'jurusans', 'Mahasiswas_belum'));
     }
 
     public function showupdate($id)
@@ -181,7 +189,7 @@ class ProsesFakultasControllers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $total_tolak = 0;
         $kode_beli = $request->get('kode_beli');
@@ -196,7 +204,7 @@ class ProsesFakultasControllers extends Controller
         $answers1 = array();
         $uuid4 = Uuid::uuid4();
         $uuid4->toString();
-
+        
 
         for ($i = 0; $i < count($nim); $i++) {
             $mahasiswas = Mahasiswa::where('nim', $nim[$i]);
@@ -212,12 +220,20 @@ class ProsesFakultasControllers extends Controller
 
             $mhs_list = Mahasiswa::where('nim', $nim[$i]);
             $nama_mhs = $mhs_list->value('nama_mhs');
-            $emails = $mhs_list->value('email');
+            $emails[] = $mhs_list->value('email');
+            $id_jurusan = $mhs_list->value('id_jurusan');
+            $jurusans = Jurusan::where('id', $id_jurusan);
+
+            $answers[] = [
+                'nama_mhs' => $nama_mhs,
+                'nim' => $nim[$i],
+                'id_jurusan' => $jurusans,
+            ];
 
             if ($addstatus[$i] == 2) {
                 $details = [
-                    'title' => 'Pembelian Buku untuk Perpustakaan',
-                    'body' => 'Buku Piihan anda di TOLAK, mohon hubungi prodi anda',
+                    'title' => 'Sumbangan Buku untuk Perpustakaan',
+                    'body' => 'Buku Piihan anda di TOLAK',
                     'kode' => $kode_beli,
                     'nama' => $nama_buku[0],
                     'penerbit' => $penerbit[0],
@@ -227,14 +243,12 @@ class ProsesFakultasControllers extends Controller
                     'nama_mhs' => $nama_mhs,
                     'nim' => $nim[$i],
                 ];
-                $total_tolak = $total_tolak + 1;
-                //Mail::to($emails)->send(new \App\Mail\MyTestMail($details));
 
 
             } elseif ($addstatus[$i] == 3) {
                 $details = [
-                    'title' => 'Pembelian Buku untuk Perpustakaan',
-                    'body' => 'Buku Piihan anda di SETUJUI, silahkan lakukan pembelian buku',
+                    'title' => 'Sumbangan Buku untuk Perpustakaan',
+                    'body' => 'Buku Piihan anda di VERIFIKASI',
                     'kode' => $kode_beli,
                     'nama' => $nama_buku[0],
                     'penerbit' => $penerbit[0],
@@ -244,22 +258,7 @@ class ProsesFakultasControllers extends Controller
                     'nama_mhs' => $nama_mhs,
                     'nim' => $nim[$i],
                 ];
-            } else {
-                $details = [
-                    'title' => 'Pembelian Buku untuk Perpustakaan',
-                    'body' => 'Buku Piihan anda di VERIFIKASI, silahkan lakukan pembelian buku',
-                    'kode' => $kode_beli,
-                    'nama' => $nama_buku[0],
-                    'penerbit' => $penerbit[0],
-                    'penulis' => $penulis[0],
-                    'harga' => $harga[0],
-                    'nama' => $nama_buku[0],
-                    'nama_mhs' => $nama_mhs,
-                    'nim' => $nim[$i],
-                ];
-
-                // Mail::to($emails)->send(new \App\Mail\MyTestMail($details));
-            }
+            } 
             $answers1[] = [
                 'kode_beli' => $kode_beli,
                 'id_buku' => $request->addid_buku,
@@ -269,7 +268,11 @@ class ProsesFakultasControllers extends Controller
         }
         Booking::insert($answers1);
 
-
+        for ($i = 0; $i < count($nim); $i++) {
+            if ($addstatus[$i] == 2 or $addstatus[$i] == 3 )   {
+            Mail::to($emails[$i])->send(new \App\Mail\MyTestMail($details, $answers));
+            }
+        }
 
 
         //$tambah_mahasiswa = new Mahasiswa;
@@ -285,7 +288,14 @@ class ProsesFakultasControllers extends Controller
         //$tambah_booking->NIM_mhs = $request->addNIM;
         //$tambah_booking->status = 1;
         //$tambah_booking->save();
-        return redirect('/proses');
+        
+        $id_jurusan = $request->user()->id_jurusan;
+        if ($id_jurusan == 1) {
+            # code...
+            return redirect('/proses_update/'.$kode_beli);
+        } else {
+            return redirect('/proses_update/'.$kode_beli);
+        }
     }
 
     /**

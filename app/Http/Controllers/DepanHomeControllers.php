@@ -22,12 +22,11 @@ class DepanHomeControllers extends Controller
         $jurusans = Jurusan::where('id', '!=', '1')->get();
         return view('DepanHome.index', compact('jurusans'));
     }
+
     public function buku()
     {
         $bukus = Buku::with('Jurusan')
-        ->selectRaw('bukus.id, bukus.nama_buku, penerbit, harga, exemplar, id_jurusan,harga/100000 as orang, jumlah')
-        ->leftJoin("bookings", "bukus.id", "=", "bookings.id_buku")
-        ->groupBy('bukus.id')
+        ->whereRaw('exemplar > jumlah')
         ->get();
         $jurusans = Jurusan::where('id', '!=', '1')->get();
         return view('DepanHome.buku', compact('bukus', 'jurusans'))->with('i', (request()->input('page', 1) - 1) * 5);
@@ -52,6 +51,11 @@ class DepanHomeControllers extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request,[
+            'addNIM[$i]' => 'required|String|unique:mahasiswas,nim',
+        ]);
+            
         $addnama = $request->input('addnama');
         $addNIM = $request->input('addNIM');
         $addid_jurusan = $request->input('addid_jurusan');
@@ -64,9 +68,7 @@ class DepanHomeControllers extends Controller
         $uuid4 = Uuid::uuid4();
         $uuid4->toString();
 
-        $update_buku = Buku::find($request->addid_buku);
-        $update_buku->jumlah = $request->addjumlah + 1;
-        $update_buku->save();
+        
 
         for ($i = 0; $i < count($addNIM); $i++) {
             $answers[] = [
@@ -76,10 +78,14 @@ class DepanHomeControllers extends Controller
                 'no_hp' => $addno_hp[$i],
                 'email' => $addemail[$i],
             ];
+            $update_buku = Buku::find($request->addid_buku);
+        $update_buku->jumlah = $request->addjumlah + 1;
+        $update_buku->save();
         }
         Mahasiswa::insert($answers);
 
         for ($i = 0; $i < count($addNIM); $i++) {
+            
             $answers1[] = [
 
                 'kode_beli' => $uuid4,
@@ -98,7 +104,7 @@ class DepanHomeControllers extends Controller
             Mail::to($addemail[$i])->send(new \App\Mail\MyTestMail($details));
         }
         Booking::insert($answers1);
-
+            
         //$tambah_mahasiswa = new Mahasiswa;
         //$tambah_mahasiswa->nama_mhs = $request->addnama;
         //$tambah_mahasiswa->nim = $request->addNIM;

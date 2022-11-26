@@ -21,7 +21,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Buku</th>
+                        <th width="10">Nama Buku</th>
                         <th>Penulis</th>
                         <th>Penerbit</th>
                         <th>Harga</th>
@@ -78,16 +78,7 @@
 @include('bukus.create')
 @include('bukus.create_excel')
 
-<div class="form-group col-md-3">
 
-    <label for="addnama_buku">Nama Mahasiswa</label>
-    <select data-select2-id="1" class="form-control zxc" id="addnama_buku" name="addnama_buku[]" required style="width:100%">
-        <option value="" selected>Pilih Mahasiswa</option>
-        @foreach($Mahasiswas_belum as $mhs)
-        <option value="{{$mhs->id}}">{{ $mhs->nim }} - {{ $mhs->nama_mhs }}</option>
-        @endforeach
-    </select>
-</div>
 
 @endsection
 
@@ -118,7 +109,7 @@
                          <div class="form-group col-md-3">
 
                                 <label for="addnama_buku">Nama Mahasiswa</label>
-                                <select data-select2-id="{{ $buku->id }}" class="form-control zxc" id="addnama_buku{{ $buku->id }}" name="addnama_buku[]" required style="width:100%">
+                                <select data-select2-id="${uid}" class="form-control zxc" id="addnama_buku${uid}" name="addnama_buku[]" required style="width:100%">
                                     <option value="" selected>Pilih Mahasiswa</option>
                                     @foreach($Mahasiswas_belum as $mhs)
                                     <option value="{{$mhs->id}}">{{ $mhs->nim }} - {{ $mhs->nama_mhs }}</option>
@@ -152,7 +143,6 @@
     $(document).ready(function() {
         $(".zxc").select2();
 
-        $("#addnama_buku").select2();
     }); //document ready
 </script>
 @endsection

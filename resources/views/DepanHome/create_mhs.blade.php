@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <!--FORM TAMBAH BARANG-->
-                <form action="/mahasiswa" method="post">
+                <form action="/mahasiswa_depan" method="post">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label for="">Nama Buku</label>
@@ -38,7 +38,7 @@
                         <input type="email" class="form-control" id="addemail" name="addemail">
                     </div>
                     <div class="form-group">
-</br>
+                        </br>
                         <button type="submit" class=" btn btn-primary">Simpan Data</button>
                     </div>
                 </form>

@@ -54,8 +54,8 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="/" class="nav-item nav-link active">Home</a>
                 <a href="/list_buku" class="nav-item nav-link">Sumbang Buku</a>
-                
-        </div>
+
+            </div>
     </nav>
     <!-- Navbar End -->
 
@@ -69,33 +69,31 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Quick Link</h4>
-                    <a class="btn btn-link" href="">About Us</a>
-                    <a class="btn btn-link" href="">Contact Us</a>
-                    <a class="btn btn-link" href="">Privacy Policy</a>
-                    <a class="btn btn-link" href="">Terms & Condition</a>
-                    <a class="btn btn-link" href="">FAQs & Help</a>
+                    <a class="btn btn-link" href="https://unmul.ac.id/">Universitas Mulawarman</a>
+                    <a class="btn btn-link" href="https://ft.unmul.ac.id/">Fakultas Teknik</a>
+                    <a class="btn btn-link" href="http://perpustakaan.unmul.ac.id/portal_teknik/">Perpustakaan Teknik</a>
+                    <a class="btn btn-link" href="http://digilib.unmul.ac.id/etd_teknik/">Digital Library</a>
+                    <a class="btn btn-link" href="http://e-lib.unmul.ac.id/teknik_opac/">e-lib Unmul</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Contact</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Alamat Kampus
+                        Kampus Gunung Kelua
+                        Jalan Sambaliung No.9 Samarinda 75119</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>Telp. (0541) 736834</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>Fax (0541) 749315</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i> fteknik.unmul@ft.unmul.ac.id</p>
+                    
                 </div>
-                
-                
+
+
             </div>
         </div>
         <div class="container">
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
+                        &copy; <a class="border-bottom" href="https://ft.unmul.ac.id/">Fakultask Teknik Universitas Mulawarman</a>, All Right Reserved.
 
                         <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br><br>
@@ -103,10 +101,8 @@
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
-                            <a href="">Home</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                            <a href="">FQAs</a>
+                            <a href="/">Home</a>
+                            <a href="/list_buku">Sumbang Buku</a>
                         </div>
                     </div>
                 </div>

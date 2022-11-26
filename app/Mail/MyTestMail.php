@@ -16,9 +16,10 @@ class MyTestMail extends Mailable
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($details, $answers)
     {
         $this->details =$details;
+        $this->answers = $answers;
     }
 
     /**
@@ -29,6 +30,6 @@ class MyTestMail extends Mailable
     public function build()
     {
         return $this->subject('Perpustakaan Fakultas Teknik')
-        ->view('emails.myTestMail');
+        ->view('emails.myTestMail')->with(['details' => $this->details, 'answers' => $this->answers]);;
     }
 }

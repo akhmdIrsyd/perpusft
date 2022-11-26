@@ -51,7 +51,8 @@
                         </td>
                         <td>{{ $buku->Jurusan->nama_jurusan }} </td>
                         <td>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalBeli{{ $buku->id }}">Beli</button>
+                            <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modalBeli{{ $buku->id }}">Beli</button>Testimonial End -->
+                            <a href=" /sumbang/{{ $buku->id }}"><button class="btn btn-primary" data-toggle="modal">Sumbang</button></a>
                         </td>
 
                     </tr>
@@ -63,7 +64,7 @@
         </div>
     </div>
 </div>
-<!-- Testimonial End -->
+
 
 
 

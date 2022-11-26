@@ -91,16 +91,26 @@ class ProsesControllers extends Controller
                 'status' => 1,
             ]);
 
+
+
             $answers1[] = [
                 'kode_beli' => $uuid4,
                 'id_buku' => $request->addid_buku,
                 'NIM_mhs' => $nim[$i],
                 'status' => 1,
             ];
-            
+
             $mhs_list = Mahasiswa::where('nim', $nim[$i]);
             $nama_mhs = $mhs_list->value('nama_mhs');
-            $emails = $mhs_list->value('email');
+            $emails[] = $mhs_list->value('email');
+            $id_jurusan = $mhs_list->value('id_jurusan');
+            $jurusans = Jurusan::where('id', $id_jurusan);
+
+            $answers[] = [
+                'nama_mhs' => $nama_mhs,
+                'nim' => $nim[$i],
+                'id_jurusan' => $jurusans,
+            ];
             $details = [
                 'title' => 'Pembelian Buku untuk Perpustakaan',
                 'body' => 'Buku yang anda beli adalah:',
@@ -113,10 +123,13 @@ class ProsesControllers extends Controller
                 'nama_mhs' => $nama_mhs, 
                 'nim' => $nim[$i],
             ];
-            
-            Mail::to($emails)->send(new \App\Mail\MyTestMail($details));
+
         }
         Booking::insert($answers1);
+
+        for ($i = 0; $i < count($nim); $i++) {
+                Mail::to($emails[$i])->send(new \App\Mail\MyTestMail($details, $answers));
+        }
 
         //$tambah_mahasiswa = new Mahasiswa;
         //$tambah_mahasiswa->nama_mhs = $request->addnama;
@@ -244,10 +257,10 @@ class ProsesControllers extends Controller
             $nama_mhs = $mhs_list->value('nama_mhs');
             $emails = $mhs_list->value('email');
 
-            if ($addstatus[$i]==2){
+            if ($addstatus[$i]==1){
                 $details = [
                     'title' => 'Pembelian Buku untuk Perpustakaan',
-                    'body' => 'Buku Piihan anda di TOLAK, mohon hubungi prodi anda',
+                    'body' => 'Buku yang anda sumbangkan adalah senagao berikut, silahkan lakukan pembelian buku, lalu hubungi bagian Perpustakaan',
                     'kode' => $kode_beli,
                     'nama' => $nama_buku[0],
                     'penerbit' => $penerbit[0],
@@ -257,14 +270,13 @@ class ProsesControllers extends Controller
                     'nama_mhs' => $nama_mhs,
                     'nim' => $nim[$i],
                 ];
-                Mail::to($emails)->send(new \App\Mail\MyTestMail($details));
 
                 
             }
-            elseif($addstatus[$i]==3){
+            elseif($addstatus[$i]==2){
                 $details = [
                     'title' => 'Pembelian Buku untuk Perpustakaan',
-                    'body' => 'Buku Piihan anda di SETUJUI, silahkan lakukan pembelian buku',
+                    'body' => 'sumbangan buku anda telah di VERIFIKASI, silahkan lakukan pembelian buku',
                     'kode' => $kode_beli,
                     'nama' => $nama_buku[0],
                     'penerbit' => $penerbit[0],
@@ -289,7 +301,6 @@ class ProsesControllers extends Controller
                     'nim' => $nim[$i],
                 ];
 
-               Mail::to($emails)->send(new \App\Mail\MyTestMail($details));
             }
             $answers1[] = [
                 'kode_beli' => $kode_beli,

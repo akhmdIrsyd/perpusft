@@ -27,7 +27,11 @@ Route::get('/', function () {
 Route::resource('buku', BukuControllers::class)->middleware('auth');
 Route::get('buku_fakultas', [BukuControllers::class, 'index_fakultas'])->middleware('auth');
 //Route::resource('proses_fakultas', ProsesFakultasControllers::class)->middleware('auth');
+Route::get('sumbang/{id}', [ProsesFakultasControllers::class, 'show']);
+Route::post('sumbang', [ProsesFakultasControllers::class, 'store']);
+Route::put('sumbang', [ProsesFakultasControllers::class, 'update']);
 Route::resource('mahasiswa', MahasiswaControllers::class)->middleware('auth');
+Route::post('mahasiswa_depan', [MahasiswaControllers::class, 'store_depan']);
 Route::get('mahasiswa_fakultas', [MahasiswaControllers::class, 'index_fakultas'])->middleware('auth');
 Route::resource('proses', ProsesControllers::class)->middleware('auth');
 Route::get('proses_fakultas', [ProsesControllers::class, 'index_fakultas'])->middleware('auth');
@@ -40,4 +44,5 @@ Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('loginaksi', [LoginController::class, 'loginaksi']);
 Route::get('logoutaksi', [LoginController::class, 'logoutaksi'])->middleware('auth');
 Route::get('kirim-email', [MailController::class, 'index']);
+Route::get('surat/{id}', [MailController::class, 'surat']);
 Route::post('ExportExcel', [BukuControllers::class, 'ExportExcel']);

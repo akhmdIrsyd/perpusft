@@ -5,7 +5,7 @@
 <div class="container-fluid p-0 mb-5">
     <div class="owl-carousel header-carousel position-relative">
         <div class="owl-carousel-item position-relative">
-            <img class="img-fluid" src="{{ asset('img/ftunmul1.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/teknik.jpg') }}" alt="">
             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
                 <div class="container">
                     <div class="row justify-content-start">
@@ -53,8 +53,8 @@
                 <div class="service-item text-center pt-3">
                     <div class="p-4">
                         <i class="fa fa-3x fa-globe text-primary mb-4"></i>
-                        <h5 class="mb-3">Online Classes</h5>
-                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                        <h5 class="mb-3">E-Book</h5>
+                        <p>Pencariaan Buku dalam bentuk digital</p>
                     </div>
                 </div>
             </div>
@@ -62,8 +62,8 @@
                 <div class="service-item text-center pt-3">
                     <div class="p-4">
                         <i class="fa fa-3x fa-home text-primary mb-4"></i>
-                        <h5 class="mb-3">Home Projects</h5>
-                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                        <h5 class="mb-3">E-Journal</h5>
+                        <p>Pencariaan Journal dalam bentuk digital</p>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     <div class="p-4">
                         <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
                         <h5 class="mb-3">OPAC</h5>
-                        <p>Open Public Access Catalogue adalah pencarian buku</p>
+                        <p>Open Public Access Catalogue pencarian buku</p>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
 </div>
 <!-- Service End -->
 
-<!-- Categories Start -->
+<!-- 
 <div class="container-xxl py-5 category">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -96,7 +96,7 @@
         </div>
     </div>
 </div>
-<!-- Categories Start -->
+ -->
 
 
 
@@ -114,7 +114,7 @@
                         <div class="card-body p-4">
                             <i class="fas fa-2x mb-3">1</i>
                             <p>
-                                Mahasiswa memilih Buku yang akan di beli
+                                Mahasiswa memilih Buku yang akan di sumbang
                             </p>
 
                         </div>
@@ -125,7 +125,7 @@
                         <div class="card-body p-4">
                             <i class="fas fa-2x mb-3"> 2</i>
                             <p>
-                                Prodi Menyetujui Buku yang akan di beli mahasiswa
+                                Mahasiswa Membeli Buku yang sudah di pilih
                             </p>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                     <div class="card gradient-custom-4">
                         <div class="card-body p-4">
                             <i class="fas  fa-2x mb-3">4</i>
-                            <p>Perpustakaan mengeluarkan surat
+                            <p>Perpustakaan mengeluarkan surat bebas pustaka
                             </p>
 
                         </div>

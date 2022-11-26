@@ -24,7 +24,7 @@ class MahasiswaControllers extends Controller
     public function index_fakultas(Request $request)
     {
         $id_jurusan = $request->user()->id_jurusan;
-        $Mahasiswas = Mahasiswa::with('Jurusan')->latest()->get();
+        $Mahasiswas = Mahasiswa::with('Jurusan')->where('id_jurusan', '=', $id_jurusan)->latest()->get();
         $jurusans = Jurusan::where('id', '=', $id_jurusan)->get();
         return view('mahasiswa.index', compact('Mahasiswas', 'jurusans'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -62,6 +62,20 @@ class MahasiswaControllers extends Controller
         } else {
             return redirect('/mahasiswa_fakultas');
         }
+    }
+
+    public function store_depan(Request $request)
+    {
+        $tambah_mahasiswa = new Mahasiswa;
+        $tambah_mahasiswa->nama_mhs = $request->addnama;
+        $tambah_mahasiswa->nim = $request->addNIM;
+        $tambah_mahasiswa->id_jurusan = $request->addid_jurusan;
+        $tambah_mahasiswa->no_hp = $request->addno_hp;
+        $tambah_mahasiswa->email = $request->addemail;
+        $tambah_mahasiswa->save();
+
+        return redirect('/');
+       
     }
 
     /**

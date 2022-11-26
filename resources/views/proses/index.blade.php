@@ -41,6 +41,7 @@
                         <td>{{ $booking->Buku->nama_buku }}</td>
                         <td>{{ $booking->Buku->harga }}</td>
                         <td>
+                            
                             <a href="/proses_update/{{ $booking->kode_beli }}"> <button class="btn btn-primary">Detail</button></a>
                             <button class="btn btn-danger" data-toggle="modal" data-target="#modalHapus{{ $i }}">Delete</button>
                             @include('proses.delete')
@@ -50,7 +51,7 @@
 
 
                     @endforeach
-
+                    
                 </tbody>
             </table>
         </div>

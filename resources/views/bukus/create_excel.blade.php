@@ -18,12 +18,14 @@
                     Sistem Informasi = 2 </br>
                     Informatika = 3 </br>
                     Geologi = 4 </br>
-                    Tambang = 5 </br>
+                    Pertambangan = 5 </br>
                     Kimia = 6 </br>
                     Sipil = 7 </br>
                     Arsitektur = 8 </br>
                     Lingkungan = 9 </br>
-                    Program Profesi Insinyu = 10 </br>
+                    Program Profesi Insinyur = 10 </br>
+                    Elektro = 11 </br>
+                    Industri = 12 </br>
                     </br>
                     <div class="form-group">
 

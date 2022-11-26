@@ -4,6 +4,16 @@
 @section('content')
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Mahasiswa</h1>
+@if ($errors->any())
+<div class="alert alert-danger">
+    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -92,26 +102,27 @@
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
                 let uid = Math.random().toString(16).slice(2);
+
                 $(wrapper).append(`
                       <div class="row">
-                         <div class="form-group col-md-11">
-
-                                <label for="addnama_buku">Nama Mahasiswa</label>
-                                <select data-select2-id=${uid}" class="form-control zxc" id="nim[]" name="nim[]" required style="width:100%">
+                        <div class="form-group col-md-11">
+                        <label for="">Nama Mahasiswa</label>
+                          <select data-select2-id=${uid}" class="form-control zxc" id="nim${uid}" name="nim[]" required style="height:100%">
                                     <option value="" selected>Pilih Mahasiswa</option>
                                     @foreach($Mahasiswas_belum as $mhs)
-                                    <option value="{{$mhs->nim}}">{{ $mhs->nim }} - {{ $mhs->nama_mhs }}</option>
+                                     <option value="{{$mhs->nim}}">{{ $mhs->nim }} - {{ $mhs->nama_mhs }}</option>
+
                                     @endforeach
                                 </select>
-                            </div>
-                        
-                        <div class="form-group col-md-0">
+                        </div>
+
+                        <div class="form-group col-md-1">
                           <a href="#" class="remove_field btn btn-sm btn-danger"><i class="mdi mdi-close"></i></a>
                         </div>
                       </div>  
-                      
                     `);
-                $('#nim' + uid).select2();
+
+                $('#nim' + uid).select2({});
             }
         });
 
@@ -123,11 +134,14 @@
     });
 </script>
 
-<script>
+<script type="text/javascript">
+    // select
     $(document).ready(function() {
-        $(".zxc").select2();
+        $('.zxc').select2({
+            placeholder: 'Pilih Mahahsiswa',
+        });
 
-        $("#addnama_buku").select2();
-    }); //document ready
+
+    });
 </script>
 @endsection

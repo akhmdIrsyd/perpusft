@@ -25,9 +25,6 @@ class BukuControllers extends Controller
     { {
             
             $bukus = Buku::with('Jurusan')
-                ->selectRaw('bukus.id, bukus.nama_buku, penulis,penerbit, harga, exemplar, id_jurusan,harga/100000 as orang, jumlah')
-                ->leftJoin("bookings", "bukus.id", "=", "bookings.id_buku")
-                ->groupBy('bukus.id')
                 ->get();
             $jurusans = Jurusan::where('id', '!=', '1')->get();
             $Mahasiswas_belum = Mahasiswa::with('Jurusan')

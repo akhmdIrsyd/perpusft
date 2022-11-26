@@ -8,6 +8,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Tabel Mahasiswa</h6>
+        <button class="btn btn-primary" onclick="myFunction()"><i class="fa fa-print me-3"></i></button>
     </div>
 
     <div class="card-body">
@@ -15,7 +16,7 @@
         <input type="text" class="form-control" value="{{ $buku->kode_beli}}" hidden>
         <p hidden>{{$kode_beli=$buku->kode_beli}}</p>
         @endforeach
-        <form action="/proses/{{$kode_beli}}" method="post">
+        <form action="/sumbang" method="post">
             @csrf
             @method('put')
             @foreach($bukus as $buku)
@@ -76,9 +77,7 @@
 
                             <option value="1" @if ($booking->status == 1) selected @endif> Booking</option>
                             <option value="2" @if ($booking->status == 2) selected @endif> Batal</option>
-                            <option value="3" @if ($booking->status == 3) selected @endif> Setuju</option>
-                            <option value="4" @if ($booking->status == 4) selected @endif> Verifikasi</option>
-                            <option value="5" @if ($booking->status == 5) selected @endif> Selesai</option>
+                            <option value="3" @if ($booking->status == 3) selected @endif> Verifikasi</option>
 
                         </select>
                     </div>
@@ -88,6 +87,7 @@
                     </div>
                     @endif
                 </div>
+
                 <input type="text" class="form-control" id="addpenerbit" name="addNIM[]" value="{{ $booking->NIM_mhs}}" hidden>
                 <input type="number" class="form-control" id="updateid" name="updateid[]" value="{{ $booking->id}}" hidden>
                 @endforeach
@@ -103,7 +103,17 @@
 @endsection
 
 @section('extrajs')
+<script>
+    function myFunction() {
+        var myParameters = window.location.search; // Get the parameters from the current page
 
+        var URL = "/surat/{{$kode_beli}}" + myParameters;
+
+        var W = window.open(URL);
+
+        W.window.print(); // Is this the right syntax ? This prints a blank page and not the above URL
+    }
+</script>
 <!-- Page level plugins -->
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
@@ -148,8 +158,7 @@
 
                             <option value="1" @if ($booking->status == 1) selected @endif> Booking</option>
                             <option value="2" @if ($booking->status == 2) selected @endif> Batal</option>
-                            <option value="3" @if ($booking->status == 3) selected @endif> Setuju</option>
-                            <option value="4" @if ($booking->status == 4) selected @endif> Verifikasi</option>
+                            <option value="3" @if ($booking->status == 3) selected @endif> Verifikasi</option>n>
                             <option value="5" @if ($booking->status == 5) selected @endif> Selesai</option>
 
                         </select>
